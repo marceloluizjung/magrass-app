@@ -1,23 +1,52 @@
-import logo from './logo.svg';
+import styled from 'styled-components';
 import './App.css';
+
+const Button = styled.button`
+  font-size: 1em;
+  margin: 1em;
+  padding: 0.25em 1em;
+  border-radius: 3px;
+  color: white;
+  background: #004d7a;
+  border: 1px solid ${props => props.theme.main};
+`;
+Button.defaultProps = {
+  theme: {
+    main: "transparent"
+  }
+}
+
+const Input = styled.input`
+font-size: 1em;
+margin: 1em;
+padding: 0.25em 1em;
+border-radius: 3px;
+color: black;
+border: 1px solid ${props => props.theme.main};
+`
+Input.defaultProps = {
+  theme: {
+    main: "transparent"
+  }
+}
+
+const Container = styled.input``;
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="Container">
+      <div className="Header">
+        <Input></Input>
+        <Button>Buscar</Button>
+      </div>
+      <div className="Body">
+        <div>Card 1</div>
+        <div>Card 2</div>
+        <div>Card 3</div>
+      </div>
+      <div className="Footer">
+        Footer
+      </div>
     </div>
   );
 }
