@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import './App.css';
 import GitHubIcon from '@material-ui/icons/GitHub';
 import LinkedInIcon from '@material-ui/icons/LinkedIn';
+import Axios from 'axios';
+import React, { useEffect } from "react";
 
 const SearchButton = styled.button`
   font-size: 1em;
@@ -46,7 +48,19 @@ const useStyles = makeStyles({
 });
 
 function App() {
+  let [today, setToday] = React.useState(null);
+  let [tomorrow, setTomorrow] = React.useState(null);
+  let [afterTomorrow, setAfterTomorrow] = React.useState(null);
   const classes = useStyles();
+  getForecast();
+  const getData = async () => {
+    const teste = getForecast();
+    debugger;
+    setToday = teste.data.forecast.forecastday[0].date;
+  }
+  useEffect(() => {
+    getForecast().then(response => {setToday(response);});
+  }, []);
   return (
     <div className="Container">
       <div className="Header">
@@ -63,7 +77,7 @@ function App() {
             />
             <CardContent>
               <Typography gutterBottom variant="h5" component="h2">
-                Lizard
+              {today}
               </Typography>
               <Typography variant="body2" color="textSecondary" component="p">
                 Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging
@@ -142,6 +156,13 @@ function App() {
       </div>
     </div>
   );
+
+  function getForecast() {
+    const options = {
+      headers: {'x-rapidapi-key': '700f16d8e4msh2cab2ef204d9143p1b6de6jsn1a6ef6555485', 'x-rapidapi-host': 'weatherapi-com.p.rapidapi.com', 'useQueryString': 'true'}
+    };
+    Axios.get('https://weatherapi-com.p.rapidapi.com/forecast.json?q= Brasil&days=3', options)
+  }
 }
 
 export default App;
