@@ -1,7 +1,7 @@
 .Container { 
   display: flex;
   justify-content: center;
-  background-image: linear-gradient(to right top, #051937, #004d7a, #008793, #00bf72, #a8eb12);
+  background-image: linear-gradient(to right top, #0c3f8a, #004d7a, #056973, #00bf72, #a8eb12);
   flex-direction: column;
   height: 100vh;
   justify-content: space-between;
@@ -43,4 +43,13 @@
 .Container-data .Data {
   display: flex;
   align-items: center;
+}
+
+.Container .Empty { 
+  display: flex;
+  flex-direction: column;
+  padding: 15px;
+  justify-content: center;
+  align-items: center;
+  color: #FFF;
 }

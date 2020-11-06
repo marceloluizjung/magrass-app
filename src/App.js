@@ -80,7 +80,7 @@ function App() {
   return (
     <div className="Container">
       <div className="Header">
-        <TextField id="standard-basic" label="Cidade" onChange={valueInputChange}/>
+        <TextField id="standard-basic" label="Cidade" onChange={valueInputChange} autoComplete="off"/>
         <Button variant="contained" color="primary" onClick={search}>Buscar</Button>
       </div>
       <Rtif boolean={loader}>
@@ -186,14 +186,23 @@ function App() {
         </div>
       </Rtif>
       <Rtif boolean={!loader && controll}>
-        <div className="Body">
-          <img width="200" height="200" src="https://www.flaticon.com/svg/static/icons/svg/2039/2039107.svg" alt="Inbox free icon" title="Inbox free icon" class="loaded"></img>
+        <div className="Empty">
+          <div>
+            <img width="200" height="200" src="https://www.flaticon.com/svg/static/icons/svg/2039/2039107.svg" alt="Inbox free icon" title="Inbox free icon" class="loaded"></img>
+          </div>
+          <div>
+            <p>Insira a cidade acima para consultar</p>
+          </div>
         </div>
       </Rtif>
       <div className="Footer">
         <span style={{padding: "5px"}}>Created by Marcelo Luiz Jung</span>
-        <GitHubIcon style={{padding: "5px"}}></GitHubIcon>
-        <LinkedInIcon style={{padding: "5px"}}></LinkedInIcon>
+        <a href="https://github.com/marceloluizjung/magrass-app" target="_blank">
+          <GitHubIcon style={{padding: "5px", color: "black"}}></GitHubIcon>
+        </a>
+        <a href="https://www.linkedin.com/in/marcelo-luiz-jung-5443ab121" target="_blank">
+          <LinkedInIcon style={{padding: "5px", color: "#2867B2"}}></LinkedInIcon>
+        </a>
       </div>
     </div>
   );
