@@ -60,7 +60,7 @@ function App() {
   const classes = useStyles();
    
   useEffect(() => {
-    if(controll || filter == 'buscar') {
+    if(filter == 'buscar') {
       setLoader(true);
       getForecast(valueInput).then(({data}) => {
         setTodayFormatedDate(moment(data.forecast.forecastday[0].date).format("DD/MM/YYYY"));
@@ -88,7 +88,7 @@ function App() {
           <CircularProgress color="secondary"/>
         </div>
       </Rtif>
-      <Rtif boolean={!loader}>
+      <Rtif boolean={!loader && !controll}>
         <div className="Body">
             <Card className={classes.root}>
               <CardActionArea>
@@ -183,6 +183,11 @@ function App() {
                 </CardContent>
               </CardActionArea>
           </Card>
+        </div>
+      </Rtif>
+      <Rtif boolean={!loader && controll}>
+        <div className="Body">
+          <img width="200" height="200" src="https://www.flaticon.com/svg/static/icons/svg/2039/2039107.svg" alt="Inbox free icon" title="Inbox free icon" class="loaded"></img>
         </div>
       </Rtif>
       <div className="Footer">
