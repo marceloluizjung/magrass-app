@@ -163,22 +163,22 @@ function App() {
                   {afterTomorrowFormatedDate}
                   </Typography>
                   <Typography variant="body2" color="textSecondary" component="p">
-                  <div className="Container-data">
-                      <p>{afterTomorrow ? afterTomorrow.day.condition.text : ''}</p>
-                    <div className="Data">
-                      <img width="20" height="20" src="https://www.flaticon.com/svg/static/icons/svg/2041/2041670.svg" alt="High temperature free icon" title="High temperature free icon" class="loaded"></img>
-                      <p>{afterTomorrow ? afterTomorrow.day.maxtemp_c : ''} Cº</p>
+                    <div className="Container-data">
+                        <p>{afterTomorrow ? afterTomorrow.day.condition.text : ''}</p>
+                      <div className="Data">
+                        <img width="20" height="20" src="https://www.flaticon.com/svg/static/icons/svg/2041/2041670.svg" alt="High temperature free icon" title="High temperature free icon" class="loaded"></img>
+                        <p>{afterTomorrow ? afterTomorrow.day.maxtemp_c : ''} Cº</p>
+                      </div>
+                      <div className="Data">
+                        <img width="20" height="20" src="https://www.flaticon.com/svg/static/icons/svg/661/661346.svg" alt="Low temperature free icon" title="Low temperature free icon" class="loaded"></img>
+                        <p>{afterTomorrow ? afterTomorrow.day.mintemp_c : ''} Cº</p>
+                      </div>
+                      <div className="Data">
+                        <img width="20" height="20" src="https://www.flaticon.com/svg/static/icons/svg/728/728093.svg" alt="Humidity free icon" title="Humidity free icon" class="loaded"></img>
+                        <p>{afterTomorrow ? afterTomorrow.day.avghumidity : ''} %</p>
+                      </div>
+                      <p>{city}</p>
                     </div>
-                    <div className="Data">
-                      <img width="20" height="20" src="https://www.flaticon.com/svg/static/icons/svg/661/661346.svg" alt="Low temperature free icon" title="Low temperature free icon" class="loaded"></img>
-                      <p>{afterTomorrow ? afterTomorrow.day.mintemp_c : ''} Cº</p>
-                    </div>
-                    <div className="Data">
-                      <img width="20" height="20" src="https://www.flaticon.com/svg/static/icons/svg/728/728093.svg" alt="Humidity free icon" title="Humidity free icon" class="loaded"></img>
-                      <p>{afterTomorrow ? afterTomorrow.day.avghumidity : ''} %</p>
-                    </div>
-                    <p>{city}</p>
-                  </div>
                   </Typography>
                 </CardContent>
               </CardActionArea>
