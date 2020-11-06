@@ -53,6 +53,7 @@ function App() {
   let [afterTomorrow, setAfterTomorrow] = useState('');
   let [valueInput, setValueInput] = useState('');
   let [filter, setFilter] = useState('');
+  let [city, setCity] = useState('');
   const classes = useStyles();
    
   useEffect(() => {
@@ -61,6 +62,7 @@ function App() {
       setToday(data.forecast.forecastday[0]);
       setTomorrow(data.forecast.forecastday[1]);
       setAfterTomorrow(data.forecast.forecastday[2]);
+      setCity(data.location.name);
       controll = false;
       setFilter('');
     },[valueInput]);
@@ -86,7 +88,8 @@ function App() {
               {today ? today.date : ''}
               </Typography>
               <Typography variant="body2" color="textSecondary" component="p">
-              {today ? today.day.condition.text : ''}
+              <p>{today ? today.day.condition.text : ''}</p>
+              <p>{city}</p>
               </Typography>
             </CardContent>
           </CardActionArea>
@@ -102,7 +105,8 @@ function App() {
               {tomorrow ? tomorrow.date : ''}
               </Typography>
               <Typography variant="body2" color="textSecondary" component="p">
-              {tomorrow ? tomorrow.day.condition.text : ''}
+              <p>{tomorrow ? tomorrow.day.condition.text : ''}</p>
+              <p>{city}</p>
               </Typography>
             </CardContent>
           </CardActionArea>
@@ -117,7 +121,8 @@ function App() {
               {afterTomorrow ? afterTomorrow.date : ''}
               </Typography>
               <Typography variant="body2" color="textSecondary" component="p">
-              {afterTomorrow ? afterTomorrow.day.condition.text : ''}
+              <p>{afterTomorrow ? afterTomorrow.day.condition.text : ''}</p>
+              <p>{city}</p>
               </Typography>
             </CardContent>
           </CardActionArea>
@@ -140,7 +145,6 @@ function App() {
   }
 
   function getForecast(city) {
-    debugger;
     const options = {
       headers: {'x-rapidapi-key': '700f16d8e4msh2cab2ef204d9143p1b6de6jsn1a6ef6555485', 'x-rapidapi-host': 'weatherapi-com.p.rapidapi.com', 'useQueryString': 'true'}
     };
