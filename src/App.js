@@ -5,6 +5,7 @@ import Axios from 'axios';
 import React, { useEffect, useState } from "react";
 import styled from 'styled-components';
 import './App.css';
+import moment from "moment";
 
 const SearchButton = styled.button`
   font-size: 1em;
@@ -35,8 +36,6 @@ Input.defaultProps = {
   }
 }
 
-const Container = styled.input``;
-
 const useStyles = makeStyles({
   root: {
     maxWidth: 345,
@@ -51,6 +50,9 @@ function App() {
   let [today, setToday] = useState('');
   let [tomorrow, setTomorrow] = useState('');
   let [afterTomorrow, setAfterTomorrow] = useState('');
+  let [todayFormatedDate, setTodayFormatedDate] = useState('');
+  let [tomorrowFormatedDate, setTomorrowFormatedDate] = useState('');
+  let [afterTomorrowFormatedDate, setAfterTomorrowFormatedDate] = useState('');
   let [valueInput, setValueInput] = useState('');
   let [filter, setFilter] = useState('');
   let [city, setCity] = useState('');
@@ -61,6 +63,9 @@ function App() {
     if(controll || filter == 'buscar') {
       setLoader(true);
       getForecast(valueInput).then(({data}) => {
+        setTodayFormatedDate(moment(data.forecast.forecastday[0].date.date).format("DD/MM/YYYY"));
+        setTomorrowFormatedDate(moment(data.forecast.forecastday[1].date.date).format("DD/MM/YYYY"));
+        setAfterTomorrowFormatedDate(moment(data.forecast.forecastday[2].date.date).format("DD/MM/YYYY"));
         setToday(data.forecast.forecastday[0]);
         setTomorrow(data.forecast.forecastday[1]);
         setAfterTomorrow(data.forecast.forecastday[2]);
@@ -94,7 +99,7 @@ function App() {
                 />
                 <CardContent>
                   <Typography gutterBottom variant="h5" component="h2">
-                  {today ? today.date : ''}
+                  {todayFormatedDate}
                   </Typography>
                   <Typography variant="body2" color="textSecondary" component="p">
                     <div className="Container-data">
@@ -125,7 +130,7 @@ function App() {
                   title="Contemplative Reptile"/>
                 <CardContent>
                   <Typography gutterBottom variant="h5" component="h2">
-                  {tomorrow ? tomorrow.date : ''}
+                  {tomorrowFormatedDate}
                   </Typography>
                   <Typography variant="body2" color="textSecondary" component="p">
                   <div className="Container-data">
@@ -155,7 +160,7 @@ function App() {
                   image={afterTomorrow ? afterTomorrow.day.condition.icon : ''} title="Contemplative Reptile"/>
                 <CardContent>
                   <Typography gutterBottom variant="h5" component="h2">
-                  {afterTomorrow ? afterTomorrow.date : ''}
+                  {afterTomorrowFormatedDate}
                   </Typography>
                   <Typography variant="body2" color="textSecondary" component="p">
                   <div className="Container-data">
