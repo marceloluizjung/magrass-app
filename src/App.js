@@ -63,9 +63,9 @@ function App() {
     if(controll || filter == 'buscar') {
       setLoader(true);
       getForecast(valueInput).then(({data}) => {
-        setTodayFormatedDate(moment(data.forecast.forecastday[0].date.date).format("DD/MM/YYYY"));
-        setTomorrowFormatedDate(moment(data.forecast.forecastday[1].date.date).format("DD/MM/YYYY"));
-        setAfterTomorrowFormatedDate(moment(data.forecast.forecastday[2].date.date).format("DD/MM/YYYY"));
+        setTodayFormatedDate(moment(data.forecast.forecastday[0].date).format("DD/MM/YYYY"));
+        setTomorrowFormatedDate(moment(data.forecast.forecastday[1].date).format("DD/MM/YYYY"));
+        setAfterTomorrowFormatedDate(moment(data.forecast.forecastday[2].date).format("DD/MM/YYYY"));
         setToday(data.forecast.forecastday[0]);
         setTomorrow(data.forecast.forecastday[1]);
         setAfterTomorrow(data.forecast.forecastday[2]);
