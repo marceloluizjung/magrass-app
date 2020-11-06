@@ -33,3 +33,14 @@
     align-items: center;
   }
 }
+
+.Container-data {
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+}
+
+.Container-data .Data {
+  display: flex;
+  align-items: center;
+}
