@@ -4,7 +4,7 @@ import './App.css';
 import GitHubIcon from '@material-ui/icons/GitHub';
 import LinkedInIcon from '@material-ui/icons/LinkedIn';
 import Axios from 'axios';
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 const SearchButton = styled.button`
   font-size: 1em;
@@ -46,107 +46,81 @@ const useStyles = makeStyles({
     height: 140,
   },
 });
-
+var controll = true;
 function App() {
-  let [today, setToday] = React.useState(null);
-  let [tomorrow, setTomorrow] = React.useState(null);
-  let [afterTomorrow, setAfterTomorrow] = React.useState(null);
+  let [today, setToday] = useState('');
+  let [tomorrow, setTomorrow] = useState('');
+  let [afterTomorrow, setAfterTomorrow] = useState('');
+  let [valueInput, setValueInput] = useState('');
+  let [filter, setFilter] = useState('');
   const classes = useStyles();
-  getForecast();
-  const getData = async () => {
-    const teste = getForecast();
-    debugger;
-    setToday = teste.data.forecast.forecastday[0].date;
-  }
+   
   useEffect(() => {
-    getForecast().then(response => {setToday(response);});
-  }, []);
+    if(controll || filter == 'buscar') {
+    getForecast(valueInput).then(({data}) => {
+      setToday(data.forecast.forecastday[0]);
+      setTomorrow(data.forecast.forecastday[1]);
+      setAfterTomorrow(data.forecast.forecastday[2]);
+      controll = false;
+      setFilter('');
+    },[valueInput]);
+  }
+  });
+
   return (
     <div className="Container">
       <div className="Header">
-        <TextField id="standard-basic" label="Standard" />
-        <Button variant="contained" color="primary">Buscar</Button>
+        <TextField id="standard-basic" label="Standard" onChange={valueInputChange}/>
+        <Button variant="contained" color="primary" onClick={search}>Buscar</Button>
       </div>
       <div className="Body">
         <Card className={classes.root}>
           <CardActionArea>
             <CardMedia
               className={classes.media}
-              image="/static/images/cards/contemplative-reptile.jpg"
+              image={today ? today.day.condition.icon : ''}
               title="Contemplative Reptile"
             />
             <CardContent>
               <Typography gutterBottom variant="h5" component="h2">
-              {today}
+              {today ? today.date : ''}
               </Typography>
               <Typography variant="body2" color="textSecondary" component="p">
-                Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging
-                across all continents except Antarctica
+              {today ? today.day.condition.text : ''}
               </Typography>
             </CardContent>
           </CardActionArea>
-          <CardActions>
-            <Button size="small" color="primary">
-              Share
-            </Button>
-            <Button size="small" color="primary">
-              Learn More
-            </Button>
-          </CardActions>
       </Card>
-
       <Card className={classes.root}>
           <CardActionArea>
             <CardMedia
               className={classes.media}
-              image="/static/images/cards/contemplative-reptile.jpg"
-              title="Contemplative Reptile"
-            />
+              image={tomorrow ? tomorrow.day.condition.icon : ''}
+              title="Contemplative Reptile"/>
             <CardContent>
               <Typography gutterBottom variant="h5" component="h2">
-                Lizard
+              {tomorrow ? tomorrow.date : ''}
               </Typography>
               <Typography variant="body2" color="textSecondary" component="p">
-                Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging
-                across all continents except Antarctica
+              {tomorrow ? tomorrow.day.condition.text : ''}
               </Typography>
             </CardContent>
           </CardActionArea>
-          <CardActions>
-            <Button size="small" color="primary">
-              Share
-            </Button>
-            <Button size="small" color="primary">
-              Learn More
-            </Button>
-          </CardActions>
       </Card>
-
       <Card className={classes.root}>
           <CardActionArea>
             <CardMedia
               className={classes.media}
-              image="/static/images/cards/contemplative-reptile.jpg"
-              title="Contemplative Reptile"
-            />
+              image={afterTomorrow ? afterTomorrow.day.condition.icon : ''} title="Contemplative Reptile"/>
             <CardContent>
               <Typography gutterBottom variant="h5" component="h2">
-                Lizard
+              {afterTomorrow ? afterTomorrow.date : ''}
               </Typography>
               <Typography variant="body2" color="textSecondary" component="p">
-                Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging
-                across all continents except Antarctica
+              {afterTomorrow ? afterTomorrow.day.condition.text : ''}
               </Typography>
             </CardContent>
           </CardActionArea>
-          <CardActions>
-            <Button size="small" color="primary">
-              Share
-            </Button>
-            <Button size="small" color="primary">
-              Learn More
-            </Button>
-          </CardActions>
       </Card>
       </div>
       <div className="Footer">
@@ -157,11 +131,21 @@ function App() {
     </div>
   );
 
-  function getForecast() {
+  function valueInputChange(event) {
+    setValueInput(event.target.value);
+  }
+
+  function search(event) {
+    setFilter('buscar');
+  }
+
+  function getForecast(city) {
+    debugger;
     const options = {
       headers: {'x-rapidapi-key': '700f16d8e4msh2cab2ef204d9143p1b6de6jsn1a6ef6555485', 'x-rapidapi-host': 'weatherapi-com.p.rapidapi.com', 'useQueryString': 'true'}
     };
-    Axios.get('https://weatherapi-com.p.rapidapi.com/forecast.json?q= Brasil&days=3', options)
+    if (city == null || city.length == 0) city = 'Brasil';
+    return Axios.get(`https://weatherapi-com.p.rapidapi.com/forecast.json?q=${city}&days=3`, options);
   }
 }
 
